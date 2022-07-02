@@ -37,7 +37,7 @@ The file in `/config/options.json` contains important items in order to run your
 ## Deploying the bot
 The service must be running for the bot to work. While you can run it on any machine, running then service on a cloud computing service allows it to be persistent.
 
-1. Sign up for a cloud computing service like [Vultr](https://www.vultr.com/?ref=8987028-8H)
+1. Sign up for a cloud computing service like [Vultr](https://www.vultr.com/?ref=8987028-8H) (click the link to get an $100 credit)
 2. Configure the server and install node js
 3. Follow the instructions above to install on the cloud computer
 4. It is recommended to install pm2 which is a process manager. This will allow you to run and manage the process without blocking the console
