@@ -33,3 +33,15 @@ The file in `/config/options.json` contains important items in order to run your
 (optional) `mainGuildId` - this is the id for your main server that you will be running the bot in. while commands will be set globally, setting your guild id here will have the commands be applied to your server instantly
 
 (optional) `loggerChannel` - this is the channel where log messages can be printed. if no logger channel is set, console messages will be printed to the console. errors will always be printed to the console regardless of whether a logger channel is set or not
+
+## Deploying the bot
+The service must be running for the bot to work. While you can run it on any machine, running then service on a cloud computing service allows it to be persistent.
+
+1. Sign up for a cloud computing service like [Vultr](https://www.vultr.com/?ref=8987028-8H)
+2. Configure the server and install node js
+3. Follow the instructions above to install on the cloud computer
+4. It is recommended to install pm2 which is a process manager. This will allow you to run and manage the process without blocking the console
+5. run `npm install pm2 -g` to install pm2
+6. run `pm2 start <path to index.js>` to start the process
+  - run `pm2 start <path to index.js> --name <bot name>` to run process with name
+7. to stop the service, run `pm2 stop <bot name>`
