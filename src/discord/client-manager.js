@@ -37,19 +37,10 @@ client.on('interactionCreate', async interaction => {
   // determine which action to take based on command
   switch(commandName) {
     case 'play':
-      try{
-        const searchQuery = options.getString('query');
+      const searchQuery = options.getString('query');
 
-        await audioPlayer.playSong(client, guild, interaction.channelId, voiceChannelId, searchQuery);
-        await interaction.reply(`Processing ${commandName} command...`);
-      }catch(err){
-        logger.logError('error on play');
-        logger.logError(err);
-
-        if(interaction.isRepliable()){
-          await interaction.reply(`Error playing ${options.getString('query')}: ${err}`)
-        }
-      }
+      await audioPlayer.playSong(client, guild, interaction.channelId, voiceChannelId, searchQuery);
+      await interaction.reply(`Processing ${commandName} command...`);
       break;
     
     case 'stop':

@@ -30,7 +30,7 @@ exports.getNext = (guildId) => {
     delete MASTER_QUEUE[guildId];
     return null;
   }
-  return song.videoInfo;
+  return song;
 };
 
 exports.getQueueLength = (guildId) => {

@@ -61,11 +61,11 @@ const toSoundCloudObject = async(searchQuery, channelId) => {
 };
 
 const getProvider = (searchQuery) => {
-  if(searchQuery.toLowerCase().contains(providers.YOUTUBE)) {
+  if(searchQuery.toLowerCase().includes(providers.YOUTUBE)) {
     return providers.YOUTUBE;
   }
 
-  if(searchQuery.toLowerCase().contains(providers.SOUNDCLOUD)) {
+  if(searchQuery.toLowerCase().includes(providers.SOUNDCLOUD)) {
     return providers.SOUNDCLOUD;
   }
 
@@ -124,7 +124,18 @@ exports.playSong = async (client, guild, channelId, voiceChannelId, searchQuery)
     });
   }
 
-  const stream = await play.stream(nextSong.url);
+  let url = '';
+
+  switch(nextSong.provider) {
+    case providers.SOUNDCLOUD:
+      url = nextSong.videoInfo.permalink_url;
+      break;
+    default:
+      url = nextSong.videoInfo.url;
+      break;
+  }
+
+  const stream = await play.stream(url);
 
   const resource = createAudioResource(stream.stream, {
     volume: 1,
