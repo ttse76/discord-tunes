@@ -9,7 +9,9 @@ You will need to create and register an application and bot on the Discord devel
 ### Installation
 1. If you do not have it already, download and install [Node JS](https://nodejs.org/en/) for your platform
 
-2. Download code repository onto your machine
+2. Download code repository onto your machine\
+
+3. Rename `/config/options.template.json` to `/config/options.json`
 
 3. Add credentials to `/config/options.json`. See below for explanation of each variable.
 
