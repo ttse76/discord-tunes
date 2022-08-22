@@ -45,8 +45,7 @@ client.on('interactionCreate', async interaction => {
       }catch(err){
         logger.logError('error on play');
         logger.logError(err);
-        console.log(err);
-        
+
         if(interaction.isRepliable()){
           await interaction.reply(`Error playing ${options.getString('query')}: ${err}`)
         }
@@ -59,7 +58,6 @@ client.on('interactionCreate', async interaction => {
       }catch(err){
         logger.logError('error on stop');
         logger.logError(err);
-        console.log(err);
       }
       break;
 
@@ -70,7 +68,6 @@ client.on('interactionCreate', async interaction => {
       }catch(err){
         logger.logError('error on skip');
         logger.logError(err);
-        console.log(err);
       }
       break;
     
@@ -81,7 +78,6 @@ client.on('interactionCreate', async interaction => {
       }catch(err){
         logger.logError('error on pause');
         logger.logError(err);
-        console.log(err);
       }
       break;
     
@@ -92,7 +88,6 @@ client.on('interactionCreate', async interaction => {
       }catch(err){
         logger.logError('error on queue');
         logger.logError(err);
-        console.log(err);
       }
       break;
 
@@ -103,7 +98,6 @@ client.on('interactionCreate', async interaction => {
 
 client.on('error', (error) => {
   logger.logError(error);
-  console.log(error);
 });
 
 /**
