@@ -9,6 +9,10 @@ const {
 
 const play = require('play-dl');
 
+const scdl = require('soundcloud-downloader').default;
+
+const providers = require('../utils/providers').providers;
+
 const logger = require('../utils/logger');
 const messageBus = require('../utils/message-bus');
 const queueManager = require('../utils/queue-manager');
@@ -36,19 +40,49 @@ const getGuildPlayer = (guildId) => {
   return GUILD_PLAYERS[guildId];
 };
 
-const toQueueObject = (channelId, videoInfo) => {
-  return { channelId: channelId, videoInfo: videoInfo }
+const toQueueObject = (channelId, videoInfo, provider) => {
+  return { channelId: channelId, videoInfo: videoInfo, provider: provider }
 };
 
-const getQueueObject = async (searchQuery, channelId) => {
+const toYoutubeObject = async (searchQuery, channelId) => {
   if(searchQuery.includes('.com')){
     searchQuery = searchQuery.split('&')[0];
   }
 
   const songInfos = await play.search(searchQuery, { limit: 1 });
   const songInfo = songInfos.length > 0 ? songInfos[0] : null;
-  const queueObj = toQueueObject(channelId, songInfo);
+  const queueObj = toQueueObject(channelId, songInfo, providers.YOUTUBE);
   return queueObj;
+};
+
+const toSoundCloudObject = async(searchQuery, channelId) => {
+  const songInfo = await scdl.getInfo(searchQuery);
+  return toQueueObject(channelId, songInfo, providers.SOUNDCLOUD);
+};
+
+const getProvider = (searchQuery) => {
+  if(searchQuery.toLowerCase().contains(providers.YOUTUBE)) {
+    return providers.YOUTUBE;
+  }
+
+  if(searchQuery.toLowerCase().contains(providers.SOUNDCLOUD)) {
+    return providers.SOUNDCLOUD;
+  }
+
+  return providers.YOUTUBE;
+};
+
+const getQueueObject = async (searchQuery, channelId) => {
+  const provider = getProvider(searchQuery);
+
+  switch(provider) {
+    case providers.YOUTUBE:
+      return await toYoutubeObject(searchQuery, channelId);
+    case providers.SOUNDCLOUD:
+      return toSoundCloudObject(searchQuery, channelId);
+    default:
+      return await toYoutubeObject(searchQuery, channelId);
+  }
 };
 
 /**
@@ -63,7 +97,7 @@ exports.playSong = async (client, guild, channelId, voiceChannelId, searchQuery)
   if(searchQuery === null && queueManager.getQueueLength(guild.id) === 0) {
     logger.logInfo('queue empty');
     return;
-  }
+  };
 
   if(searchQuery !== null){
     // get song info
