@@ -25,9 +25,9 @@ exports.logInfo = (msg) => {
 
 exports.logError = (msg) => {
   const log = `[ERROR] ${msg}`;
+  console.log(log);
+  
   if(CHANNEL){
     CHANNEL.send({ content: `[ERROR] ${msg}`});
-  }else{
-    console.log(log);
   }
 };
