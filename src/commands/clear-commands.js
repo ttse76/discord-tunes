@@ -24,7 +24,8 @@ if(config.getDevGuildId()){
         promises.push(rest.delete(deleteUrl));
       }
       return Promise.all(promises);
-    });
+    })
+    .then(() => console.log('Successfully cleared dev server commands'));
 }
 
 if(config.getMainGuildId()){
@@ -36,7 +37,8 @@ if(config.getMainGuildId()){
         promises.push(rest.delete(deleteUrl));
       }
       return Promise.all(promises);
-    });
+    })
+    .then(() => console.log('Successfully cleared main server commands'));
 }
 
 rest.get(Routes.applicationCommands(config.getClientId()))
@@ -47,4 +49,5 @@ rest.get(Routes.applicationCommands(config.getClientId()))
       promises.push(rest.delete(deleteUrl));
     }
     return Promise.all(promises);
-  });
+  })
+  .then(() => console.log('Successfully cleared global server commands'));
