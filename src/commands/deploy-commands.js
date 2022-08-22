@@ -51,6 +51,6 @@ if(config.getMainGuildId()){
     .catch(console.error);
 }
 
-rest.put(Routes.applicationCommands(config.getClientId()), { body: commands })
+/*rest.put(Routes.applicationCommands(config.getClientId()), { body: commands })
   .then(() => console.log('Successfully registered global commands'))
-  .catch(console.error);
+  .catch(console.error);*/
