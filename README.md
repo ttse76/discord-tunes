@@ -36,6 +36,13 @@ The file in `/config/options.json` contains important items in order to run your
 
 (optional) `loggerChannel` - this is the channel where log messages can be printed. if no logger channel is set, console messages will be printed to the console. errors will always be printed to the console regardless of whether a logger channel is set or not
 
+## Deploying commands
+By default, commands are not deployed globally. 
+This is due to commands appearing twice if commands are deployed both globally and to specifi servers,
+they will appear twice on the list. To deploy commands globally, open `deploy-commands.js` and
+comment out the section at the bottom. To prevent duplicates, comment out the first two blocks. Then run
+`npm run deploy-commands`.
+
 ## Deploying the bot
 The service must be running for the bot to work. While you can run it on any machine, running then service on a cloud computing service allows it to be persistent.
 
